@@ -5,8 +5,8 @@
  */
 package com.sv.udb.vista;
 
-import com.sv.udb.controlador.EquiposCtrl;
-import com.sv.udb.modelo.Equipos;
+import com.sv.udb.controlador.JugadoresCtrl;
+import com.sv.udb.modelo.Jugadores;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -17,10 +17,10 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author Estudiante
+ * @author leyes
  */
-@WebServlet(name = "EquiposServ", urlPatterns = {"/EquiposServ"})
-public class EquiposServ extends HttpServlet {
+@WebServlet(name = "JugadoresServ", urlPatterns = {"/JugadoresServ"})
+public class JugadoresServ extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -33,19 +33,24 @@ public class EquiposServ extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        boolean esValido = request.getMethod().equals("POST");
-        String mens = "";
-        if(!esValido){
-            response.sendRedirect(request.getContextPath() + "/index.jsp");
-        }
-        else{
-            String CRUD = request.getParameter("btnEqui");
+        response.setContentType("text/html;charset=UTF-8");
+            boolean esValido = request.getMethod().equals("POST");
+            String mens = "";
+            if(!esValido){
+                response.sendRedirect(request.getContextPath() + "/jugadores.jsp");
+            }
+            else{
+                  String CRUD = request.getParameter("btnJuga");
             if(CRUD.equals("Guardar"))
             {      
-                Equipos obje = new Equipos();
-                obje.setNombreEqui(request.getParameter("nomb"));
-                obje.setDescEqui(request.getParameter("desc"));
-                if(new EquiposCtrl().guar(obje))
+                Jugadores obje = new Jugadores();
+                obje.setNombreJ(request.getParameter("nomb"));
+                obje.setIdEquipo(Integer.parseInt(request.getParameter("equi")));
+                obje.setEdad(request.getParameter("edad"));
+                obje.setAltura(Integer.parseInt(request.getParameter("altu")));
+                obje.setPeso(request.getParameter("pes"));
+                
+                if(new JugadoresCtrl().guar(obje))
                 {
                     mens = "Datos guardados";
                 }
@@ -56,25 +61,27 @@ public class EquiposServ extends HttpServlet {
             }
             else if(CRUD.equals("Consultar"))
             {
-                int codi = Integer.parseInt(request.getParameter("codiEquiRadi").isEmpty() ? "-1" : request.getParameter("codiEquiRadi"));
-                Equipos obje = new EquiposCtrl().cons(codi);
+                int codi = Integer.parseInt(request.getParameter("codiJugaRadio").isEmpty() ? "-1" : request.getParameter("codiJugaRadio"));
+                Jugadores obje = new JugadoresCtrl().cons(codi);
                 if(obje != null)
                 {
-                    request.setAttribute("codi", obje.getCodiEqui());
-                    request.setAttribute("nomb", obje.getNombreEqui());
-                    request.setAttribute("desc", obje.getDescEqui());
+                    request.setAttribute("codi", obje.getId());
+                    request.setAttribute("nomb", obje.getNombreJ());
+                    request.setAttribute("altu", obje.getAltura());
+                    request.setAttribute("edad", obje.getEdad());
+                    request.setAttribute("pes", obje.getPeso());
                 }
                 else
                 {
                     mens = "Error al consultar";
                 }
             }
-             else if(CRUD.equals("Eliminar"))
+            else if(CRUD.equals("Eliminar"))
             {
-                 Equipos obje = new Equipos();
-                int codi = Integer.parseInt(request.getParameter("codiEquiRadi").isEmpty() ? "-1" : request.getParameter("codiEquiRadi"));
-                obje.setCodiEqui(codi);
-                if(new EquiposCtrl().elim(obje))
+                 Jugadores obje = new Jugadores();
+                int codi = Integer.parseInt(request.getParameter("codiJugaRadio").isEmpty() ? "-1" : request.getParameter("codiJugaRadio"));
+                obje.setId(codi);
+                if(new JugadoresCtrl().elim(obje))
                 {mens = "Datos eliminados";
                    
                 }
@@ -83,13 +90,16 @@ public class EquiposServ extends HttpServlet {
                     mens = "Error al consultar";
                 }
             }
-            else if(CRUD.equals("Modificar"))
+             else if(CRUD.equals("Modificar"))
             {
-                 Equipos obje = new Equipos();
-                obje.setCodiEqui(Integer.parseInt(request.getParameter("codi")));
-                obje.setNombreEqui(request.getParameter("nomb"));
-                obje.setDescEqui(request.getParameter("desc"));
-                if(new EquiposCtrl().modi(obje))
+                 Jugadores obje = new Jugadores();
+                obje.setId(Integer.parseInt(request.getParameter("codi")));
+                obje.setNombreJ(request.getParameter("nomb"));
+                obje.setIdEquipo(Integer.parseInt(request.getParameter("equi")));
+                obje.setEdad(request.getParameter("edad"));
+                obje.setAltura(Integer.parseInt(request.getParameter("altu")));
+                obje.setPeso(request.getParameter("pes"));
+                if(new JugadoresCtrl().modi(obje))
                 {mens = "Datos modifcados";
                    
                 }
@@ -97,10 +107,11 @@ public class EquiposServ extends HttpServlet {
                 {
                     mens = "Error al modificar";
                 }
-            }
+            }     
             request.setAttribute("mensAler",mens);
-            request.getRequestDispatcher("/index.jsp").forward(request, response);
-        }
+            request.getRequestDispatcher("/jugadores.jsp").forward(request, response);
+            
+            }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

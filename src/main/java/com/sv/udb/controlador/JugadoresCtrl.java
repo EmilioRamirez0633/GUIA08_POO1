@@ -59,6 +59,46 @@ public class JugadoresCtrl {
         return resp;
     } 
     
+    public Jugadores cons(int id)
+    {
+       Jugadores resp = null;
+       Connection cn = new Conexion().getConn();
+        try
+        {
+            PreparedStatement cmd = cn.prepareStatement("select codi_juga,jugadores.codi_equi, nomb_equi, nomb_juga, edad_juga, altu_juga, peso_juga\n" +
+            "from jugadores, equipos where jugadores.codi_equi = equipos.codi_equi and codi_juga = ? order by codi_juga");
+             cmd.setString(1, String.valueOf(id)); 
+            ResultSet rs = cmd.executeQuery();
+            while(rs.next())
+            {
+                resp = (new Jugadores(rs.getInt(1),rs.getInt(2),rs.getString(3),rs.getString(4),rs.getString(5),rs.getInt(6),rs.getString(7)));
+            }
+            //Se carga el 
+        }
+        catch(Exception err)
+        {
+            err.printStackTrace();
+        }
+        finally
+        {
+            try
+            {
+                if(cn!=null)
+                {
+                    if(!cn.isClosed())
+                    {
+                        cn.close();
+                    }
+                }
+            }
+            catch(SQLException err)
+            {
+                err.printStackTrace();
+            }
+        }
+        return resp;
+    } 
+    
     //Buscar equipos
     public List<Jugadores> consEqui()
     {

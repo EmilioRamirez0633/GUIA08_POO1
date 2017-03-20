@@ -5,17 +5,25 @@
    "http://www.w3.org/TR/html4/loose.dtd">
 
 <html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
-    </head>
+    
     <body>
+        <head>
+            <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+            <title>Guía 08 :::: POO1</title>
+            <!--<link rel='stylesheet' href='webjars/materialize/0.97.3/css/materialize.min.css'>
+            <script type="text/javascript" src="webjars/jquery/2.1.1/jquery.min.js"></script>
+            <script type="text/javascript" src="webjars/materialize/0.97.3/js/materialize.min.js"></script-->
+        </head>
+        <li><a href="jugadores.jsp">Jugadores</a></li>
         <h1>${mensAler}</h1>
         <form method="POST" action="EquiposServ" name="Demo">
-            <input disabled type="text" name="codi" id="codi" value="${codi}"/><br/>
-            <input type="text" name="nomb" id="nomb" value="${nomb}"/><br/>
+            <label>Id:</label>
+            <input type="text" name="codi" id="codi" value="${codi}"/>
+             <label>Nombre:</label>
+            <input type="text" name="nomb" id="nomb" value="${nomb}"/>
+             <label>Descripcion:</label>
             <input type="text" name="desc" id="desc" value="${desc}"/><br/>
-            <input type="submit" name="btnEqui" value="Guardar" />
+            <input type="submit" name="btnEqui" value="Guardar"/>
             <input type="submit" name="btnEqui" value="Modificar"/>
         </form>
          <h1>La Tabla</h1>  
