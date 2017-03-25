@@ -10,9 +10,9 @@
         <head>
             <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
             <title>Guía 08 :::: POO1</title>
-            <!--<link rel='stylesheet' href='webjars/materialize/0.97.3/css/materialize.min.css'>
-            <script type="text/javascript" src="webjars/jquery/2.1.1/jquery.min.js"></script>
-            <script type="text/javascript" src="webjars/materialize/0.97.3/js/materialize.min.js"></script-->
+            <<link rel='stylesheet' href='webjars/materialize/0.97.3/dist/css/materialize.min.css'>
+            <script type="text/javascript" src="webjars/jquery/2.1.4/jquery.min.js"></script>
+            <script type="text/javascript" src="webjars/materialize/0.97.3/dist/js/materialize.min.js"></script>
         </head>
         <li><a href="jugadores.jsp">Jugadores</a></li>
         <h1>${mensAler}</h1>
