@@ -7,18 +7,28 @@ package com.sv.udb.vista;
 
 import com.sv.udb.controlador.EquiposCtrl;
 import com.sv.udb.modelo.Equipos;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.DataInputStream;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.PrintWriter;
+import java.nio.file.Paths;
+import javax.imageio.ImageIO;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
 
 /**
  *
  * @author Estudiante
  */
+@MultipartConfig
 @WebServlet(name = "EquiposServ", urlPatterns = {"/EquiposServ"})
 public class EquiposServ extends HttpServlet {
 
@@ -45,6 +55,15 @@ public class EquiposServ extends HttpServlet {
                 Equipos obje = new Equipos();
                 obje.setNombreEqui(request.getParameter("nomb"));
                 obje.setDescEqui(request.getParameter("desc"));
+                Part filePart = request.getPart("img");
+                int fotoSize = (int)filePart.getSize();
+                byte[] foto = null;
+                foto = new byte[fotoSize];
+                try(DataInputStream dataImg = new DataInputStream(filePart.getInputStream()))
+                {
+                    dataImg.readFully(foto);
+                }
+                obje.setImg(foto);
                 if(new EquiposCtrl().guar(obje))
                 {
                     mens = "Datos guardados";
@@ -63,6 +82,7 @@ public class EquiposServ extends HttpServlet {
                     request.setAttribute("codi", obje.getCodiEqui());
                     request.setAttribute("nomb", obje.getNombreEqui());
                     request.setAttribute("desc", obje.getDescEqui());
+                   
                 }
                 else
                 {

@@ -7,6 +7,8 @@ package com.sv.udb.controlador;
 
 import com.sv.udb.modelo.Equipos;
 import com.sv.udb.recursos.Conexion;
+import java.awt.Image;
+import java.nio.file.Path;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -26,9 +28,10 @@ public class EquiposCtrl {
         Connection cn = new Conexion().getConn();
         try
         {
-            PreparedStatement cmd = cn.prepareStatement("INSERT INTO equipos VALUES(NULL,?,?)");
+            PreparedStatement cmd = cn.prepareStatement("INSERT INTO equipos VALUES(NULL,?,?,?)");
             cmd.setString(1, obje.getNombreEqui());
             cmd.setString(2, obje.getDescEqui());
+            cmd.setBytes(3, obje.getImg());
             cmd.executeUpdate();
             resp=true;
         }
@@ -136,7 +139,7 @@ public class EquiposCtrl {
             ResultSet rs = cmd.executeQuery();
             while(rs.next())
             {
-                resp.add(new Equipos(rs.getInt(1),rs.getString(2),rs.getString(3)));
+                resp.add(new Equipos(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getBytes(4)));
             }
         }
         catch(Exception err)
@@ -174,7 +177,7 @@ public class EquiposCtrl {
             ResultSet rs = cmd.executeQuery();
             while(rs.next())
             {
-                resp = (new Equipos(rs.getInt(1),rs.getString(2),rs.getString(3)));
+                resp = (new Equipos(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getBytes(4)));
             }
         }
         catch(Exception err)
@@ -200,4 +203,8 @@ public class EquiposCtrl {
         }
         return resp;
     } 
+       
+            
+
+         
 }
