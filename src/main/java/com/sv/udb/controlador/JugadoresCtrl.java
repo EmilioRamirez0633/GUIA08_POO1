@@ -26,12 +26,12 @@ public class JugadoresCtrl {
        Connection cn = new Conexion().getConn();
         try
         {
-            PreparedStatement cmd = cn.prepareStatement("select codi_juga,jugadores.codi_equi, nomb_equi, nomb_juga, edad_juga, altu_juga, peso_juga\n" +
+            PreparedStatement cmd = cn.prepareStatement("select codi_juga,jugadores.codi_equi, nomb_equi, nomb_juga, edad_juga, altu_juga, peso_juga,imag_juga\n" +
             "from jugadores, equipos where jugadores.codi_equi = equipos.codi_equi order by codi_juga");
             ResultSet rs = cmd.executeQuery();
             while(rs.next())
             {
-                resp.add(new Jugadores(rs.getInt(1),rs.getInt(2),rs.getString(3),rs.getString(4),rs.getString(5),rs.getInt(6),rs.getString(7)));
+                resp.add(new Jugadores(rs.getInt(1),rs.getInt(2),rs.getString(3),rs.getString(4),rs.getString(5),rs.getInt(6),rs.getString(7),rs.getBytes(8)));
             }
             //Se carga el 
         }
@@ -65,13 +65,13 @@ public class JugadoresCtrl {
        Connection cn = new Conexion().getConn();
         try
         {
-            PreparedStatement cmd = cn.prepareStatement("select codi_juga,jugadores.codi_equi, nomb_equi, nomb_juga, edad_juga, altu_juga, peso_juga\n" +
+            PreparedStatement cmd = cn.prepareStatement("select codi_juga,jugadores.codi_equi, nomb_equi, nomb_juga, edad_juga, altu_juga, peso_juga,imag_juga\n" +
             "from jugadores, equipos where jugadores.codi_equi = equipos.codi_equi and codi_juga = ? order by codi_juga");
              cmd.setString(1, String.valueOf(id)); 
             ResultSet rs = cmd.executeQuery();
             while(rs.next())
             {
-                resp = (new Jugadores(rs.getInt(1),rs.getInt(2),rs.getString(3),rs.getString(4),rs.getString(5),rs.getInt(6),rs.getString(7)));
+                resp = (new Jugadores(rs.getInt(1),rs.getInt(2),rs.getString(3),rs.getString(4),rs.getString(5),rs.getInt(6),rs.getString(7),rs.getBytes(8)));
             }
             //Se carga el 
         }
@@ -146,12 +146,13 @@ public class JugadoresCtrl {
         Connection cn = new Conexion().getConn();
         try
         {
-            PreparedStatement cmd = cn.prepareStatement("INSERT INTO jugadores VALUES(NULL,?,?,?,?,?)");
+            PreparedStatement cmd = cn.prepareStatement("INSERT INTO jugadores VALUES(NULL,?,?,?,?,?,?)");
             cmd.setInt(1, obje.getIdEquipo());
             cmd.setString(2, obje.getNombreJ());
             cmd.setString(3, obje.getEdad());
             cmd.setInt(4, obje.getAltura());
             cmd.setString(5, obje.getPeso());
+            cmd.setBytes(6, obje.getImg());
             cmd.executeUpdate();
             resp=true;
         }

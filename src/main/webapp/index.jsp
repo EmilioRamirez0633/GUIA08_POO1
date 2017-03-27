@@ -1,3 +1,4 @@
+<%@page import="java.util.Base64"%>
 <%@page import="com.sv.udb.controlador.EquiposCtrl"%>
 <%@page import="com.sv.udb.modelo.Equipos"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -59,11 +60,16 @@
                             <%
                              for(Equipos temp : new EquiposCtrl().consTodo())
                              {
+                                  byte[] photo = temp.getImg();
+                                  String bphoto = Base64.getEncoder().encodeToString(photo);
                             %>        
                             <tr>
+                                 
                                 <td><p><input name="codiEquiRadi"  type="radio" value="<%=temp.getCodiEqui()%>" id="<%=temp.getCodiEqui()%>" /><label for="<%=temp.getCodiEqui()%>"></label></p></td>
                                 <td><%=temp.getNombreEqui()%></td>
                                 <td><%=temp.getDescEqui()%></td>
+                                 <td><img src="data:image/*;base64,<%=bphoto%>" class="materialboxed" width="100" height="100"></td>
+
                             </tr>
                             <%
                              }

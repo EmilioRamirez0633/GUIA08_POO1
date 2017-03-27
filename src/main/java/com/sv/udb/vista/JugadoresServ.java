@@ -7,18 +7,22 @@ package com.sv.udb.vista;
 
 import com.sv.udb.controlador.JugadoresCtrl;
 import com.sv.udb.modelo.Jugadores;
+import java.io.DataInputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
 
 /**
  *
  * @author leyes
  */
+@MultipartConfig
 @WebServlet(name = "JugadoresServ", urlPatterns = {"/JugadoresServ"})
 public class JugadoresServ extends HttpServlet {
 
@@ -49,6 +53,15 @@ public class JugadoresServ extends HttpServlet {
                 obje.setEdad(request.getParameter("edad"));
                 obje.setAltura(Integer.parseInt(request.getParameter("altu")));
                 obje.setPeso(request.getParameter("pes"));
+                Part filePart = request.getPart("img");
+                int fotoSize = (int)filePart.getSize();
+                byte[] foto = null;
+                foto = new byte[fotoSize];
+                try(DataInputStream dataImg = new DataInputStream(filePart.getInputStream()))
+                {
+                    dataImg.readFully(foto);
+                }
+                obje.setImg(foto);
                 
                 if(new JugadoresCtrl().guar(obje))
                 {

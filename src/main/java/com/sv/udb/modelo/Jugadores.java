@@ -20,6 +20,15 @@ public class Jugadores {
 
     private String edad;
     private int altura;
+    private byte[] img;
+
+    public byte[] getImg() {
+        return img;
+    }
+
+    public void setImg(byte[] img) {
+        this.img = img;
+    }
 
     public int getAltura() {
         return altura;
@@ -43,7 +52,7 @@ public class Jugadores {
         this.nombreJ = nombreJ;
     }
 
-    public Jugadores(int id, int idEquipo, String equipo, String nombreJ, String edad, int altura, String peso) {
+    public Jugadores(int id, int idEquipo, String equipo, String nombreJ, String edad, int altura, String peso,byte[] img) {
         this.id = id;
         this.nombreJ = nombreJ;
         this.equipo = equipo;
@@ -51,6 +60,7 @@ public class Jugadores {
         this.edad = edad;
         this.altura = altura;
         this.peso = peso;
+        this.img = img;
     }
     
     public Jugadores(String equipo, int idEquipo) {
