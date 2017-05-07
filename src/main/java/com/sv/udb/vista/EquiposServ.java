@@ -82,7 +82,7 @@ public class EquiposServ extends HttpServlet {
                     request.setAttribute("codi", obje.getCodiEqui());
                     request.setAttribute("nomb", obje.getNombreEqui());
                     request.setAttribute("desc", obje.getDescEqui());
-                    request.setAttribute("ima",obje.getImg() );
+                   
                 }
                 else
                 {

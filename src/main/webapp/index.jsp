@@ -2,13 +2,21 @@
 <%@page import="com.sv.udb.controlador.EquiposCtrl"%>
 <%@page import="com.sv.udb.modelo.Equipos"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+ <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
    "http://www.w3.org/TR/html4/loose.dtd">
 
+<!DOCTYPE html>
+<%-- language maneja el idioma actual --%>
+<c:set var="language" value="${not empty param.language ? param.language : not empty language ? language : pageContext.request.locale}" scope="session" />
+<fmt:setLocale value="${language}" />
+<fmt:setBundle basename="com.me.jsp.bundle.Internacionalizacion" />
 <html>
     
     <body>
         <head>
+            
             <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
             <title>Guía 08 :::: POO1</title>
             <link rel='stylesheet' href='webjars/materialize/0.97.3/dist/css/materialize.min.css'>
@@ -17,6 +25,21 @@
             <script type="text/javascript" src="webjars/materialize/0.97.3/dist/js/materialize.min.js"></script>
         </head>
         <div class="container">
+            
+             <form>
+                <fmt:message key="label.select_language" />: 
+                <select id="language" name="language" onchange="submit();">
+                   <option value="es_ES" 
+                     <c:if test="${language=='es_ES'}">selected</c:if>>
+                     <fmt:message key="label.spanish" />
+                   </option>
+                   <option value="en_US" 
+                     <c:if test="${language=='en_US'}">selected</c:if>>
+                     <fmt:message key="label.english" />
+                   </option>
+                </select>
+            </form>
+              <br />
             <li><a href="jugadores.jsp">Jugadores</a></li>
             <h1>${mensAler}</h1>
             <form method="POST" action="EquiposServ" name="Demo" enctype="multipart/form-data">
@@ -83,6 +106,7 @@
                         <i class="material-icons right">delete</i>
                      </button>
              </form>
+                    
          </div>
     </body>
 </html>

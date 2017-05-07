@@ -10,7 +10,13 @@
 <%@page import="com.sv.udb.controlador.JugadoresCtrl"%>
 <%@page import="com.sv.udb.modelo.Jugadores"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+ <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
+<%-- language maneja el idioma actual --%>
+<c:set var="language" value="${not empty param.language ? param.language : not empty language ? language : pageContext.request.locale}" scope="session" />
+<fmt:setLocale value="${language}" />
+<fmt:setBundle basename="com.me.jsp.bundle.Internacionalizacion" />
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -21,6 +27,21 @@
             <script type="text/javascript" src="webjars/materialize/0.97.3/dist/js/materialize.min.js"></script>
     </head>
     <body>
+        <form>
+            <div class="input-field col s12 m6 l6">
+                <fmt:message key="label.select_language" />: 
+                <select id="language" name="language" onchange="submit();">
+                   <option value="es_ES" 
+                     <c:if test="${language=='es_ES'}">selected</c:if>>
+                     <fmt:message key="label.spanish" />
+                   </option>
+                   <option value="en_US" 
+                     <c:if test="${language=='en_US'}">selected</c:if>>
+                     <fmt:message key="label.english" />
+                   </option>
+                </select>
+            </div>
+            </form>
         <div class="container"> 
         <li><a href="index.jsp">Equipos</a></li>
         <h1>${mensAler}</h1>
