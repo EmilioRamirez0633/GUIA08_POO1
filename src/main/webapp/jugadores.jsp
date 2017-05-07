@@ -27,7 +27,9 @@
             <script type="text/javascript" src="webjars/materialize/0.97.3/dist/js/materialize.min.js"></script>
     </head>
     <body>
-        <form>
+        
+        <div class="container"> 
+            <form>
             <div class="input-field col s12 m6 l6">
                 <fmt:message key="label.select_language" />: 
                 <select id="language" name="language" onchange="submit();">
@@ -42,17 +44,16 @@
                 </select>
             </div>
             </form>
-        <div class="container"> 
-        <li><a href="index.jsp">Equipos</a></li>
+        <li><a href="index.jsp"><fmt:message key="label.equipos"/></a></li>
         <h1>${mensAler}</h1>
         <form method="POST" action="JugadoresServ" name="Demo" enctype="multipart/form-data"></br>
             <label>Id:</label>
             <input type="text" name="codi" id="codi" value="${codi}"/></br>
-             <label>Nombre:</label>
-            <input type="text" name="nomb" id="nomb" value="${nomb}"/></br>
+             <label><fmt:message key="label.nombre" /></label>
+            <input type="text" name="nomb" id="nomb" value="${nomb}" /></br>
              <div class="input-field col s12">
                 <select name="equi" id="equi">
-                  <option value="" disabled selected>Choose your option</option>
+                  <option value="" disabled selected><fmt:message key="label.disable" /></option>
                 <%
                      for(Equipos temp : new EquiposCtrl().consTodo())
                  {
@@ -62,14 +63,14 @@
                   }
                  %>
                  </select>
-                <label>Equipos:</label>
+                <label><fmt:message key="label.equipos" /></label>
               </div>
              </select></br>
-             <label>Edad:</label>
+             <label><fmt:message key="label.edad" /></label>
             <input type="text" name="edad" id="edad" value="${edad}"/></br>
-            <label>Altura:</label>
+            <label><fmt:message key="label.altura"/></label>
             <input type="text" name="altu" id="altu" value="${altu}"/></br>
-            <label>Peso:</label>
+            <label><fmt:message key="label.peso"/></label>
             <input type="text" name="pes" id="pes" value="${pes}"/></br>
             <div class='input-field col s12 m12 l12'>
                         <div class="file-field input-field">
@@ -82,24 +83,24 @@
                             </div>  
                         </div>
                     </div>
-                <button class="btn waves-effect waves-light" type="submit" name="btnJuga" value="Guardar">Guardar
+                <button class="btn waves-effect waves-light" type="submit" name="btnJuga" value="Guardar"><fmt:message key="label.guardar"/>
                         <i class="material-icons right">send</i>
                  </button>
-                 <button class="btn waves-effect waves-light" type="submit" name="btnJuga" value="Modificar">Modificar
+                 <button class="btn waves-effect waves-light" type="submit" name="btnJuga" value="Modificar"><fmt:message key="label.modificar"/>
                         <i class="material-icons right">send</i>
                  </button>
         </form>
-         <h1>La Tabla</h1>  
+         <h1><fmt:message key="label.tabla"/></h1>  
          <form method="POST" action="JugadoresServ" name="Tabla">                                                                                  
             <table border="1">
                 <tr>
                     <th>Cons</th>
-                    <th>Nombre</th>
-                    <th>Equipo</th>
-                    <th>Edad</th>
-                    <th>Altura</th>
-                    <th>peso</th>
-                    <th>Imagen</th>
+                    <th><fmt:message key="label.nombre" /></th>
+                    <th><fmt:message key="label.equipos"/></th>
+                    <th><fmt:message key="label.edad" /></th>
+                    <th><fmt:message key="label.altura" /></th>
+                    <th><fmt:message key="label.peso" /></th>
+                    <th><fmt:message key="label.imagen"/></th>
                 </tr>
                 <%
                  for(Jugadores temp : new JugadoresCtrl().consTodo())
@@ -120,10 +121,10 @@
                  }
                 %>
             </table>
-            <button class="btn waves-effect waves-light" type="submit" name="btnJuga" value="Consultar">Consultar
+            <button class="btn waves-effect waves-light" type="submit" name="btnJuga" value="Consultar"><fmt:message key="label.consultar"/>
                         <i class="material-icons right">send</i>
                      </button>
-                    <button class="btn waves-effect waves-light" type="submit" name="btnJuga" value="Eliminar">Eliminar
+                    <button class="btn waves-effect waves-light" type="submit" name="btnJuga" value="Eliminar"><fmt:message key="label.eliminar"/>
                         <i class="material-icons right">delete</i>
                      </button>
          </form>
